@@ -1,0 +1,65 @@
+import random
+
+# List of sentences with blanks and their corresponding multiple-choice answers
+sentences = [
+    {
+        "sentence": "The sun ___ in the morning.",
+        "choices": ["shines", "rains", "snows"],
+        "correct_answer": "shines"
+    },
+    {
+        "sentence": "I like to eat ___ for breakfast.",
+        "choices": ["cereal", "pizza", "ice cream"],
+        "correct_answer": "cereal"
+    },
+    {
+        "sentence": "My favorite color is ___ .",
+        "choices": ["blue", "green", "yellow"],
+        "correct_answer": "blue"
+    },
+    # Add more sentences here
+]
+
+def play_game():
+    print("Welcome to the Sentence Completion Game!")
+    score = 0
+
+    # Shuffle the sentences to randomize the order
+    random.shuffle(sentences)
+
+    for idx, sentence_data in enumerate(sentences, start=1):
+        sentence = sentence_data["sentence"]
+        choices = sentence_data["choices"]
+        correct_answer = sentence_data["correct_answer"]
+
+        print(f"\nQuestion {idx}:")
+        print(sentence)
+
+        # Display multiple-choice options
+        for index, choice in enumerate(choices, start=1):
+            print(f"{index}. {choice}")
+
+        # Get user input for the answer
+        while True:
+            try:
+                user_choice = int(input("Enter the number of your choice: "))
+                if 1 <= user_choice <= len(choices):
+                    break
+                else:
+                    print("Invalid choice. Please enter a number between 1 and", len(choices))
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
+        # Check if the user's answer is correct
+        if choices[user_choice - 1] == correct_answer:
+            print("Correct!")
+            score += 1
+        else:
+            print("Incorrect. The correct answer is:", correct_answer)
+
+    # Display final score
+    print("\nGame Over!")
+    print(f"Your final score is: {score} out of {len(sentences)}")
+
+if __name__ == "__main__":
+    play_game()
